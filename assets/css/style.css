@@ -1,4 +1,6 @@
 
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/cascadia-code.min.css");
+
 :root {
     --color1: #F39237;
     --color2: #E5E6E4;
@@ -6,6 +8,8 @@
 }
 body {
     background-color: var(--color2);
+    font-family: 'Cascadia Code', sans-serif;
+    letter-spacing: .25em;
 }
 
 a {
@@ -42,6 +46,13 @@ nav {
     color: var(--color1);
     font-size: x-large;
 }
+@media screen and (max-width:980px) {
+    #name-plate{
+       margin-bottom: 250px;
+       margin-left: 0;
+       margin-right: 0;
+    } 
+ }
 
 /* --------------- About Section --------------- */
 #about{
@@ -97,8 +108,21 @@ nav {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30%;
+    margin-top: 27%;
+    margin-bottom: 30px;
 }
+@media screen and (max-width:980px) {
+    #skill-circle{
+        margin-top: 30px;
+        margin-bottom: -75px;
+        width: 350px;
+        height: 350px;
+    } 
+    #about-circle{
+        display: none;
+    }
+ }
+
 
 
 /* -------------- Projects Section ------------- */
@@ -115,6 +139,9 @@ nav {
     padding-top: 30px;
     padding-bottom: 10px;
 }
+#project-list li{
+    margin: 10px 10px 0px 10px;
+}
 
 #project-list img{
     width: 500px;
@@ -122,6 +149,13 @@ nav {
     object-fit: cover;
     margin-top: 20px;
     border: solid 10px var(--color3);
+}
+
+@media screen and (max-width:768px) {
+   #project-list img{
+    width: 350px;
+    height: 225px;
+   } 
 }
 
 
@@ -143,15 +177,15 @@ nav {
 }
 label{
     font-size: larger;
-    font-weight: bold;
     color: var(--color3);
+    margin-bottom: -5px;
 }
 #message{
     height: 300px;
 }
 button{
     background-color: var(--color3);
-    font-size: x-large;
+    font-size: large;
     color: var(--color2);
     height: 50px;
     margin: 30px;
