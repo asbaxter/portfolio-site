@@ -68,9 +68,11 @@ nav {
     font-size: x-large;
     padding-top: 125px;
     padding-left: 100px;
+    color: var(--color3);
 }
 #about-circle h2{
-    padding: 30px;
+    padding-top: 30px;
+    padding-bottom: 10px;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -79,7 +81,7 @@ nav {
     text-align: center;
     bottom: 20%;
     border-bottom: solid 3px var(--color1);
-    width: 50%;
+    width: 60%;
 }
 
 #skill-circle{
@@ -102,7 +104,27 @@ nav {
 /* -------------- Projects Section ------------- */
 #projects{
     background-color: var(--color2);
+    text-align: center;
 }
+#projects h2{
+    border-bottom: solid 3px var(--color1);
+    color: var(--color3);
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+#project-list img{
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+    margin-top: 20px;
+    border: solid 10px var(--color3);
+
+}
+
 
 /* -------------- Contact Section -------------- */
 #contact{
