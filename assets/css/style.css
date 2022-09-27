@@ -46,18 +46,30 @@ nav {
 /* --------------- About Section --------------- */
 #about{
     background-color: var(--color1);
+    color: var(--color2);
 }
 #about-circle{
-    background-color: var(--color3);
     background: linear-gradient( var(--color1) 50%, var(--color3) 50% );
     border-radius: 50%;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
     position: relative;
+    top: -200px;
+
+}
+.bio{
+    padding-bottom: 100px;
+    margin-top: -200px;
+}
+.bio p{
+    font-size: x-large;
+    padding-top: 125px;
+    padding-left: 100px;
 }
 #about-circle h2{
-    color: var(--color2);
     padding: 30px;
     position: absolute;
     margin-left: auto;
@@ -69,12 +81,13 @@ nav {
     border-bottom: solid 3px var(--color1);
     width: 50%;
 }
+
 #skill-circle{
     background-color: var(--color3);
     text-align: center;
     border-radius: 50%;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     color: var(--color2);
 }
 #skill-circle h3{
@@ -82,7 +95,7 @@ nav {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25%;
+    margin-top: 30%;
 }
 
 
