@@ -155,7 +155,7 @@ nav {
     height: 300px;
     object-fit: cover;
     margin-top: 20px;
-    border: solid 10px var(--color3);
+    box-shadow: 10px 5px 5px var(--color3);
 }
 #project{
     padding-bottom: 100px;
