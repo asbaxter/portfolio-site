@@ -6,10 +6,16 @@
     --color2: #E5E6E4;
     --color3: #36393B;
 }
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
 body {
     background-color: var(--color2);
     font-family: 'Cascadia Code', sans-serif;
     letter-spacing: .25em;
+    min-height: 100vh;
 }
 
 a, a:hover, a:focus, a:active {
@@ -35,7 +41,10 @@ nav {
 /* ---------------- Hero Section --------------- */
 
 #hero{
-    background-color: var(--color2);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 #name-plate{
     margin-top: 20%;
@@ -59,6 +68,40 @@ nav {
        text-align: center;
     } 
  }
+
+/* ---------------- Bubbles  --------------- */
+.bubbles{
+    position: relative;
+    display: flex;
+}
+.bubbles span{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-color: var(--color1);
+    margin: 0 4px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 10px var(--color1),
+    0 0 50px var(--color1),
+    0 0 100px var(--color1);
+    animation: animate 15s linear infinite;
+    animation-duration: calc(120s / var(--i));
+}
+.bubbles span:nth-child(even){
+    background-color: var(--color3);
+    box-shadow: 0 0 0 10px var(--color3),
+    0 0 50px var(--color3),
+    0 0 100px var(--color3);
+}
+@keyframes animate {
+0%{
+    transform: translateY(100vh) scale(0);
+}
+100%{
+    transform: translateY(-10vh) scale(1);
+}   
+}
+
 
 /* --------------- About Section --------------- */
 #about{
