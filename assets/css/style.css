@@ -146,9 +146,6 @@ nav {
     padding-bottom: 10px;
     margin-bottom: 50px;
 }
-#project-list li{
-    margin: 10px 10px 0px 10px;
-}
 
 #project-list img{
     width: 500px;
@@ -159,6 +156,16 @@ nav {
 }
 #project{
     padding-bottom: 100px;
+    color: var(--color3);
+}
+#project-links{
+    margin-top: 25px;
+    background-color: var(--color3);
+    color: var(--color2);
+    padding: 7px;
+}
+#project-links a{
+    padding: 25px;
 }
 
 @media screen and (max-width:768px) {
