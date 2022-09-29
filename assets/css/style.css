@@ -113,9 +113,42 @@ border-radius: 50%;
 #toggled{
     visibility: hidden;
 }
+/* ---------------- Hamburger Nav  --------------- */
+#hamburger{
+    margin-top: 30px;
+    display: none;
+}
+#bar{
+    display: block;
+    background-color: var(--color3);
+    height: 7px;
+    width: 40px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+
+
 @media screen and (max-width:1200px) {
-    nav ul li{
-        
+    nav{
+        border-bottom: 0px;
+    }
+
+    #toggle-hidden{
+        display: none;
+    }
+    
+    nav ul {
+        display: block;
+        text-align: center;
+        background-color: var(--color3);
+        padding: 30px;
+        color: var(--color2);
+    }
+
+    #hamburger{
+        display: block;
     }
 }
 

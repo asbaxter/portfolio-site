@@ -1,6 +1,9 @@
 const toggle = document.querySelector(".switch");
 const bubbles = document.querySelector(".bubbles");
+const hamburger = document.querySelector("#hamburger");
+const navList = document.querySelector(".nav-list");
 
+// Bubblessssssssssssss
 
 toggle.addEventListener("click", () => {
     console.log("click");
@@ -8,7 +11,6 @@ toggle.addEventListener("click", () => {
 })
 
 let clicks = 0;
-
 
 // because of the default behaviour of the spans in our button; one user click plays the function twice.
 
@@ -28,5 +30,18 @@ function bubbleHandler(){
         clicks = 0;
     }
     
-
 }
+
+let burgerClicks = 0;
+// Hamburger Menus
+hamburger.addEventListener("click", () => {
+    burgerClicks++;
+    if(burgerClicks == 1){
+        navList.removeAttribute("id", "toggle-hidden");
+    }
+    else{
+        navList.setAttribute('id', 'toggle-hidden');
+        burgerClicks = 0;
+    }
+
+})
