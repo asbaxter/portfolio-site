@@ -38,6 +38,12 @@ nav {
     font-size: x-large;
     border-bottom: solid 3px var(--color1);
 }
+nav ul{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+}
+
 
 .switch {
     position: relative;
@@ -107,6 +113,11 @@ border-radius: 50%;
 #toggled{
     visibility: hidden;
 }
+@media screen and (max-width:1200px) {
+    nav ul li{
+        
+    }
+}
 
 /* ---------------- Hero Section --------------- */
 
@@ -135,13 +146,17 @@ border-radius: 50%;
        margin-right: 0;
        text-align: center;
     } 
-    #bubble-switch{
-        display: none;
-    }
     #name-plate{
         text-align: center;
         margin-left: 0%;
     }
+}
+@media screen and (max-width:1200px) {
+
+    #bubble-switch{
+        display: none;
+    }
+
 
  }
 
@@ -177,7 +192,14 @@ border-radius: 50%;
     transform: translateY(-10vh) scale(1);
 }   
 }
+@media screen and (max-width:1200px) {
 
+    .bubbles{
+        display: none;
+    }
+
+
+ }
 
 /* --------------- About Section --------------- */
 #about{
@@ -243,6 +265,7 @@ border-radius: 50%;
         margin-bottom: -75px;
         width: 350px;
         height: 350px;
+        border-radius: 0%;
     } 
     #about-circle{
         display: none;
@@ -251,11 +274,9 @@ border-radius: 50%;
         text-align: center;
         padding-left: 0px;
     }
-    .bubbles{
-        display: none;
-    }
 
  }
+
 
 
 
