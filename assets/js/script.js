@@ -9,24 +9,22 @@ toggle.addEventListener("click", () => {
 
 let clicks = 0;
 
+
+// because of the default behaviour of the spans in our button; one user click plays the function twice.
+
 function bubbleHandler(){
     clicks++;
-    console.log(clicks)
     if (clicks == 1){
         bubbles.setAttribute("id", "toggled");
-        console.log('bubbles off');
     }
     if (clicks == 2){
         bubbles.setAttribute("id", "toggled");
-        console.log('bubbles off');
     }
     if(clicks == 3){
         bubbles.removeAttribute("id", "toggled")
-        console.log("bubbles on");
     }
     if(clicks == 4){
         bubbles.removeAttribute("id", "toggled")
-        console.log("bubbles on");
         clicks = 0;
     }
     
