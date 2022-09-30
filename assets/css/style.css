@@ -318,7 +318,7 @@ border-radius: 50%;
         border-radius: 0%;
     } 
     #about-circle{
-        display: none;
+        margin-bottom: -300px;
     }
     .bio p{
         text-align: center;
