@@ -319,10 +319,14 @@ border-radius: 50%;
     } 
     #about-circle{
         margin-bottom: -300px;
+        width: 350px;
+        height: 350px;
+        top: -175px;
     }
     .bio p{
         text-align: center;
         padding-left: 0px;
+        margin-top: 25px;
     }
 
  }
