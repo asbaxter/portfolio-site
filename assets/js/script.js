@@ -1,6 +1,6 @@
 const toggle = document.querySelector(".switch");
 const bubbles = document.querySelector(".bubbles");
-const hamburger = document.querySelector("#hamburger");
+const hamburger = document.querySelector(".hamburger");
 const navList = document.querySelector(".nav-list");
 
 // Bubblessssssssssssss
@@ -16,10 +16,7 @@ let clicks = 0;
 
 function bubbleHandler(){
     clicks++;
-    if (clicks == 1){
-        bubbles.setAttribute("id", "toggled");
-    }
-    if (clicks == 2){
+    if (clicks == 1 || clicks == 2){
         bubbles.setAttribute("id", "toggled");
     }
     if(clicks == 3){
@@ -38,9 +35,11 @@ hamburger.addEventListener("click", () => {
     burgerClicks++;
     if(burgerClicks == 1){
         navList.removeAttribute("id", "toggle-hidden");
+        hamburger.setAttribute("id", "toggle-x");
     }
     else{
         navList.setAttribute('id', 'toggle-hidden');
+        hamburger.removeAttribute("id", "toggle-hidden");
         burgerClicks = 0;
     }
 

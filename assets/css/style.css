@@ -114,11 +114,11 @@ border-radius: 50%;
     visibility: hidden;
 }
 /* ---------------- Hamburger Nav  --------------- */
-#hamburger{
+.hamburger{
     margin-top: 30px;
     display: none;
 }
-#bar{
+.bar{
     display: block;
     background-color: var(--color3);
     height: 7px;
@@ -127,7 +127,25 @@ border-radius: 50%;
     margin-left: auto;
     margin-right: 30px;
 }
-
+#toggle-x{
+    margin-bottom: -60px;
+}
+#toggle-x .bar{
+    background-color: var(--color2);
+    position: relative;
+    margin-top: 40px;
+}
+#toggle-x #bar1{
+    transform: rotate(45deg);
+    margin-bottom: -6px;
+} 
+#toggle-x #bar2{
+    display: none;
+} 
+#toggle-x #bar3{
+    transform: rotate(-45deg);
+    margin-top: -6px;
+} 
 
 
 @media screen and (max-width:1200px) {
@@ -146,8 +164,7 @@ border-radius: 50%;
         padding: 30px;
         color: var(--color2);
     }
-
-    #hamburger{
+    .hamburger{
         display: block;
     }
 }
