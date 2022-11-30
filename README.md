@@ -1,7 +1,7 @@
 # portfolio-site
-A site about me and stuff. This is my second attempt at a portfolio site
+A site about me and stuff. Check it out and let me know what you think.</br>
 
-Live Site: [Here](https://asbaxter.github.io/portfolio-site/)
+Live Site: [https://asbaxter.github.io/portfolio-site/](https://asbaxter.github.io/portfolio-site/)
 
 ## hero
 The bubbles are animated, which is pretty neat.
