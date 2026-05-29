@@ -48,7 +48,7 @@ export default function Terminal({ activeSectionCallback, onExit, viewportHeight
 
   // Focus terminal input on click anywhere inside terminal
   const focusInput = () => {
-    inputRef.current?.focus();
+    inputRef.current?.focus({ preventScroll: true });
   };
 
   const handleInputFocus = () => {
@@ -64,7 +64,10 @@ export default function Terminal({ activeSectionCallback, onExit, viewportHeight
   };
 
   useEffect(() => {
-    focusInput();
+    const timer = setTimeout(() => {
+      focusInput();
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleKeyDown = (e) => {
@@ -329,7 +332,6 @@ ${bulletPoints}`;
           onKeyDown={handleKeyDown}
           onFocus={handleInputFocus}
           className="terminal-input"
-          autoFocus
           autoComplete="off"
           spellCheck="false"
         />
