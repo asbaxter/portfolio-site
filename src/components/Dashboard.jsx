@@ -66,6 +66,38 @@ export default function Dashboard({ onActivateCli }) {
     };
   }, [isChatOpen]);
 
+  const [viewportHeight, setViewportHeight] = useState('100dvh');
+
+  useEffect(() => {
+    if (!isChatOpen) return;
+
+    const handleViewportChange = () => {
+      if (window.visualViewport) {
+        setViewportHeight(`${window.visualViewport.height}px`);
+        if (window.scrollY !== 0) {
+          window.scrollTo(0, 0);
+        }
+      }
+    };
+
+    handleViewportChange();
+    window.visualViewport?.addEventListener('resize', handleViewportChange);
+    window.visualViewport?.addEventListener('scroll', handleViewportChange);
+
+    const resetScroll = () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 50);
+    };
+    window.addEventListener('focusin', resetScroll);
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleViewportChange);
+      window.visualViewport?.removeEventListener('scroll', handleViewportChange);
+      window.removeEventListener('focusin', resetScroll);
+    };
+  }, [isChatOpen]);
+
   const skillCategories = [
     { id: 'all', label: 'All Tech Stack', color: 'cyan' },
     { id: 'aiEngineering', label: 'AI & Agents', color: 'blue' },
@@ -121,6 +153,7 @@ export default function Dashboard({ onActivateCli }) {
     : portfolioData.projects.filter(p => p.category === activeCategory);
 
   const handleChatFocus = () => {
+    window.scrollTo(0, 0);
     if (chatMessagesRef.current) {
       setTimeout(() => {
         chatMessagesRef.current.scrollTo({
@@ -451,7 +484,11 @@ export default function Dashboard({ onActivateCli }) {
       <div className="floating-chat-container">
         {/* Chat Window */}
         {isChatOpen && (
-          <div className="floating-chat-window glass-panel animate-fade-in scanlines" id="chatbot-window">
+          <div 
+            className="floating-chat-window glass-panel animate-fade-in scanlines" 
+            id="chatbot-window"
+            style={window.innerWidth <= 768 ? { height: viewportHeight, maxHeight: viewportHeight } : undefined}
+          >
             <div className="chatbot-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div className="bot-header-info">
                 <Bot size={16} className="neon-text-cyan" />
