@@ -133,10 +133,10 @@ Currently focusing on bridging Agentic AI workflows with high-value enterprise i
         break;
 
       case 'skills':
-        const aiList = portfolioData.skills.aiEngineering.map(s => `  [+] ${s.name.padEnd(55)}`).join('\n');
-        const langList = portfolioData.skills.languagesCore.map(s => `  [+] ${s.name.padEnd(55)}`).join('\n');
-        const devopsList = portfolioData.skills.cloudDevOps.map(s => `  [+] ${s.name.padEnd(55)}`).join('\n');
-        const autoList = portfolioData.skills.enterpriseAutomation.map(s => `  [+] ${s.name.padEnd(55)}`).join('\n');
+        const aiList = portfolioData.skills.aiEngineering.map(s => `  [+] ${s.name}`).join('\n');
+        const langList = portfolioData.skills.languagesCore.map(s => `  [+] ${s.name}`).join('\n');
+        const devopsList = portfolioData.skills.cloudDevOps.map(s => `  [+] ${s.name}`).join('\n');
+        const autoList = portfolioData.skills.enterpriseAutomation.map(s => `  [+] ${s.name}`).join('\n');
         
         setHistory(prev => [
           ...prev,
