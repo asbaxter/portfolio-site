@@ -53,6 +53,19 @@ export default function Dashboard({ onActivateCli }) {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [activeSkillCategory, setActiveSkillCategory] = useState('all');
 
+  // Lock body scroll on mobile/tablet when chat is open to prevent infinite scroll bugs
+  useEffect(() => {
+    const isMobileViewport = window.innerWidth <= 768;
+    if (isMobileViewport && isChatOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isChatOpen]);
+
   const skillCategories = [
     { id: 'all', label: 'All Tech Stack', color: 'cyan' },
     { id: 'aiEngineering', label: 'AI & Agents', color: 'blue' },

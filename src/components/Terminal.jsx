@@ -14,13 +14,21 @@ export default function Terminal({ activeSectionCallback, onExit }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const [history, setHistory] = useState([
-    { type: 'system', text: "Initializing Antigravity Core 2.0..." },
-    { type: 'system', text: "Connecting to Local Agent Workspace... SUCCESS" },
-    { type: 'system', text: "Loading custom MCP Server Nodes (google-drive-mcp, gmail-dispatch-mcp, calendar-mcp)... ONLINE" },
-    { type: 'system', text: "Welcome to Andrew Baxter's Console (v2.5.0-agentic)." },
-    { type: 'system', text: "Type 'help' to list available commands or 'chat <question>' to talk to my AI Career Assistant." },
-  ]);
+  const [history, setHistory] = useState(() => {
+    const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768;
+    if (isMobileViewport) {
+      return [
+        { type: 'system', text: "Andrew Baxter's Console (v2.5.0). Type 'help' for diagnostics." }
+      ];
+    }
+    return [
+      { type: 'system', text: "Initializing Antigravity Core 2.0..." },
+      { type: 'system', text: "Connecting to Local Agent Workspace... SUCCESS" },
+      { type: 'system', text: "Loading custom MCP Server Nodes (google-drive-mcp, gmail-dispatch-mcp, calendar-mcp)... ONLINE" },
+      { type: 'system', text: "Welcome to Andrew Baxter's Console (v2.5.0-agentic)." },
+      { type: 'system', text: "Type 'help' to list available commands or 'chat <question>' to talk to my AI Career Assistant." },
+    ];
+  });
   const [inputValue, setInputValue] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);

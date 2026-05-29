@@ -8,6 +8,17 @@ export default function App() {
   const [uiMode, setUiMode] = useState('dashboard'); // 'dashboard' or 'terminal'
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  React.useEffect(() => {
+    if (uiMode === 'terminal' || isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [uiMode, isMobileMenuOpen]);
+
   const toggleUiMode = () => {
     setUiMode(prev => prev === 'dashboard' ? 'terminal' : 'dashboard');
   };
