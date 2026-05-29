@@ -32,6 +32,17 @@ export default function Terminal({ activeSectionCallback, onExit }) {
     inputRef.current?.focus();
   };
 
+  const handleInputFocus = () => {
+    if (terminalBodyRef.current) {
+      setTimeout(() => {
+        terminalBodyRef.current.scrollTo({
+          top: terminalBodyRef.current.scrollHeight,
+          behavior: 'smooth'
+        });
+      }, 150);
+    }
+  };
+
   useEffect(() => {
     focusInput();
   }, []);
@@ -285,6 +296,7 @@ ${bulletPoints}`;
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={handleInputFocus}
           className="terminal-input"
           autoFocus
           autoComplete="off"

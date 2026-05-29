@@ -131,3 +131,35 @@
   margin-left: 2px;
   animation: blink 1s step-end infinite;
 }
+
+/* HIGH-FIDELITY MOBILE KEYBOARD OVERLAY ADJUSTMENTS */
+@media (max-width: 768px) {
+  .terminal-container {
+    height: calc(100dvh - 120px) !important;
+    max-height: calc(100dvh - 100px) !important;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal-container {
+    height: calc(100dvh - 100px) !important;
+    max-height: calc(100dvh - 80px) !important;
+  }
+  .terminal-body {
+    padding: 12px 16px !important;
+    font-size: 0.8rem !important;
+  }
+  .terminal-prompt-row {
+    padding: 8px 16px !important;
+  }
+  .terminal-prompt {
+    font-size: 0.75rem !important;
+    margin-right: 4px !important;
+  }
+  .terminal-input {
+    font-size: 0.8rem !important;
+  }
+}

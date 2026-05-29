@@ -107,6 +107,17 @@ export default function Dashboard({ onActivateCli }) {
     ? portfolioData.projects 
     : portfolioData.projects.filter(p => p.category === activeCategory);
 
+  const handleChatFocus = () => {
+    if (chatMessagesRef.current) {
+      setTimeout(() => {
+        chatMessagesRef.current.scrollTo({
+          top: chatMessagesRef.current.scrollHeight,
+          behavior: 'smooth'
+        });
+      }, 150);
+    }
+  };
+
   // Handle chatbot send
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -428,12 +439,23 @@ export default function Dashboard({ onActivateCli }) {
         {/* Chat Window */}
         {isChatOpen && (
           <div className="floating-chat-window glass-panel animate-fade-in scanlines" id="chatbot-window">
-            <div className="chatbot-header">
+            <div className="chatbot-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div className="bot-header-info">
                 <Bot size={16} className="neon-text-cyan" />
                 <span>Andrew's Assistant v2.1.2</span>
               </div>
-              <span className="chat-status neon-text-green">ONLINE</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span className="chat-status neon-text-green">ONLINE</span>
+                <button 
+                  type="button" 
+                  className="chatbot-mobile-close"
+                  onClick={() => setIsChatOpen(false)}
+                  aria-label="Close Assistant Chat"
+                  style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '4px', display: 'none', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <CloseIcon size={16} />
+                </button>
+              </div>
             </div>
 
             <div className="chatbot-messages" ref={chatMessagesRef}>
@@ -456,6 +478,7 @@ export default function Dashboard({ onActivateCli }) {
                 name="chatbot-input"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
+                onFocus={handleChatFocus}
                 placeholder="Ask 'EV migration', 'SOW automation'..."
                 className="chatbot-input"
                 autoFocus

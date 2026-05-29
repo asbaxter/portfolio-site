@@ -326,4 +326,17 @@
   }
 }
 
+/* Fluid terminal wrapper spacing on mobile viewports */
+@media (max-width: 768px) {
+  .terminal-wrapper {
+    margin: 16px auto 0 auto !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .main-content {
+    padding: 12px 16px !important;
+  }
+}
+
 
