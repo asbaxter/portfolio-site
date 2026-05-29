@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Terminal as TerminalIcon, LayoutGrid, Cpu, Code, User, FileText, Mail, Sparkles, Workflow } from 'lucide-react';
+import { Terminal as TerminalIcon, LayoutGrid, Cpu, Code, User, FileText, Mail, Sparkles, Workflow, Menu, X } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import Terminal from './components/Terminal';
 import './App.css';
 
 export default function App() {
   const [uiMode, setUiMode] = useState('dashboard'); // 'dashboard' or 'terminal'
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleUiMode = () => {
     setUiMode(prev => prev === 'dashboard' ? 'terminal' : 'dashboard');
   };
 
   const handleNavClick = (e, sectionId) => {
+    setIsMobileMenuOpen(false);
     if (uiMode === 'dashboard') {
       e.preventDefault();
       const element = document.getElementById(sectionId);
@@ -48,7 +50,7 @@ export default function App() {
           </span>
         </div>
 
-        <nav className="header-nav">
+        <nav className={`header-nav ${isMobileMenuOpen ? 'mobile-nav-open' : ''}`}>
           <ul>
             <li>
               <a href="#about" id="nav-link-about" onClick={(e) => handleNavClick(e, 'about')}>
@@ -78,21 +80,34 @@ export default function App() {
           </ul>
         </nav>
 
-        {/* HIGH-TECH TOGGLE SWITCH */}
-        <div className="mode-toggle-wrapper">
-          <span className={`toggle-label ${uiMode === 'dashboard' ? 'active-mode' : ''}`}>GUI</span>
+        <div className="header-actions-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          {/* HIGH-TECH TOGGLE SWITCH */}
+          <div className="mode-toggle-wrapper">
+            <span className={`toggle-label ${uiMode === 'dashboard' ? 'active-mode' : ''}`}>GUI</span>
+            <button 
+              onClick={toggleUiMode} 
+              id="ui-mode-toggle"
+              className={`cyber-toggle ${uiMode === 'terminal' ? 'toggle-cli' : 'toggle-gui'}`}
+              title="Toggle Interface Mode (CLI vs. GUI)"
+              aria-label="Toggle interface mode (GUI vs CLI)"
+            >
+              <span className="toggle-slider">
+                {uiMode === 'dashboard' ? <LayoutGrid size={12} /> : <TerminalIcon size={12} />}
+              </span>
+            </button>
+            <span className={`toggle-label ${uiMode === 'terminal' ? 'active-mode-cli' : ''}`}>CLI</span>
+          </div>
+
+          {/* HAMBURGER MENU TOGGLE FOR MOBILE */}
           <button 
-            onClick={toggleUiMode} 
-            id="ui-mode-toggle"
-            className={`cyber-toggle ${uiMode === 'terminal' ? 'toggle-cli' : 'toggle-gui'}`}
-            title="Toggle Interface Mode (CLI vs. GUI)"
-            aria-label="Toggle interface mode (GUI vs CLI)"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            id="mobile-menu-toggle-btn"
+            className="mobile-menu-toggle"
+            title="Toggle Navigation Menu"
+            aria-label="Toggle Navigation Menu"
           >
-            <span className="toggle-slider">
-              {uiMode === 'dashboard' ? <LayoutGrid size={12} /> : <TerminalIcon size={12} />}
-            </span>
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <span className={`toggle-label ${uiMode === 'terminal' ? 'active-mode-cli' : ''}`}>CLI</span>
         </div>
       </header>
 
