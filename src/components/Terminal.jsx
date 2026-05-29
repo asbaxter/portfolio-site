@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from '../data/portfolioData';
 import './Terminal.css';
 
-export default function Terminal({ activeSectionCallback, onExit }) {
+export default function Terminal({ activeSectionCallback, onExit, viewportHeight }) {
   const [isMobile, setIsMobile] = useState(false);
-  const [viewportHeight, setViewportHeight] = useState('100dvh');
 
   useEffect(() => {
     const handleResize = () => {
@@ -13,34 +12,6 @@ export default function Terminal({ activeSectionCallback, onExit }) {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    const handleViewportChange = () => {
-      if (window.visualViewport) {
-        setViewportHeight(`${window.visualViewport.height}px`);
-        if (window.scrollY !== 0) {
-          window.scrollTo(0, 0);
-        }
-      }
-    };
-
-    handleViewportChange();
-    window.visualViewport?.addEventListener('resize', handleViewportChange);
-    window.visualViewport?.addEventListener('scroll', handleViewportChange);
-
-    const resetScroll = () => {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 50);
-    };
-    window.addEventListener('focusin', resetScroll);
-
-    return () => {
-      window.visualViewport?.removeEventListener('resize', handleViewportChange);
-      window.visualViewport?.removeEventListener('scroll', handleViewportChange);
-      window.removeEventListener('focusin', resetScroll);
-    };
   }, []);
 
   const [history, setHistory] = useState(() => {

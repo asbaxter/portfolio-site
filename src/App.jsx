@@ -7,17 +7,58 @@ import './App.css';
 export default function App() {
   const [uiMode, setUiMode] = useState('dashboard'); // 'dashboard' or 'terminal'
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [viewportHeight, setViewportHeight] = useState('100vh');
 
   React.useEffect(() => {
     if (uiMode === 'terminal' || isMobileMenuOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      document.body.style.top = `-${scrollY}px`;
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+      document.body.style.overscrollBehavior = 'none';
+      document.documentElement.style.overscrollBehavior = 'none';
+
+      return () => {
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+        document.body.style.top = '';
+        document.body.style.overflow = '';
+        document.body.style.overscrollBehavior = '';
+        document.documentElement.style.overscrollBehavior = '';
+        window.scrollTo(0, scrollY);
+      };
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [uiMode, isMobileMenuOpen]);
+
+  React.useEffect(() => {
+    const handleViewportChange = () => {
+      if (window.visualViewport) {
+        setViewportHeight(`${window.visualViewport.height}px`);
+        if (window.scrollY !== 0) {
+          window.scrollTo(0, 0);
+        }
+      }
+    };
+    handleViewportChange();
+    window.visualViewport?.addEventListener('resize', handleViewportChange);
+    window.visualViewport?.addEventListener('scroll', handleViewportChange);
+
+    const resetScroll = () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 50);
+    };
+    window.addEventListener('focusin', resetScroll);
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleViewportChange);
+      window.visualViewport?.removeEventListener('scroll', handleViewportChange);
+      window.removeEventListener('focusin', resetScroll);
+    };
+  }, []);
 
   const toggleUiMode = () => {
     setUiMode(prev => prev === 'dashboard' ? 'terminal' : 'dashboard');
@@ -128,8 +169,11 @@ export default function App() {
           {uiMode === 'dashboard' ? (
             <Dashboard onActivateCli={() => setUiMode('terminal')} />
           ) : (
-            <div className="terminal-wrapper animate-fade-in">
-              <Terminal onExit={() => setUiMode('dashboard')} />
+            <div 
+              className="terminal-wrapper animate-fade-in"
+              style={window.innerWidth <= 768 ? { height: viewportHeight, maxHeight: viewportHeight } : undefined}
+            >
+              <Terminal onExit={() => setUiMode('dashboard')} viewportHeight={viewportHeight} />
             </div>
           )}
         </div>
