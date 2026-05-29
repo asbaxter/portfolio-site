@@ -1149,10 +1149,18 @@
 }
 
 .chatbot-mobile-close {
-  display: none !important;
+  display: flex !important;
+  opacity: 0.8;
+  transition: all 0.2s ease;
 }
 
-@media (max-width: 480px) {
+.chatbot-mobile-close:hover {
+  opacity: 1;
+  color: var(--color-cyan) !important;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
   .floating-chat-window {
     width: 100vw !important;
     height: 100dvh !important;
@@ -1165,11 +1173,5 @@
     border: none !important;
     margin: 0 !important;
     z-index: 99999 !important;
-  }
-  .floating-chat-container {
-    position: static !important;
-  }
-  .chatbot-mobile-close {
-    display: flex !important;
   }
 }

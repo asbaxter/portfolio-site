@@ -3,6 +3,17 @@ import { portfolioData } from '../data/portfolioData';
 import './Terminal.css';
 
 export default function Terminal({ activeSectionCallback, onExit }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const [history, setHistory] = useState([
     { type: 'system', text: "Initializing Antigravity Core 2.0..." },
     { type: 'system', text: "Connecting to Local Agent Workspace... SUCCESS" },
@@ -58,7 +69,7 @@ export default function Terminal({ activeSectionCallback, onExit }) {
       setHistoryIndex(-1);
 
       // Print command in terminal
-      setHistory(prev => [...prev, { type: 'input', text: `guest@andrewbaxter.dev:~$ ${command}` }]);
+      setHistory(prev => [...prev, { type: 'input', text: `${isMobile ? 'guest:~$' : 'guest@andrewbaxter.dev:~$' } ${command}` }]);
       
       // Parse command
       executeCommand(command);
@@ -142,9 +153,9 @@ Currently focusing on bridging Agentic AI workflows with high-value enterprise i
           ...prev,
           { 
             type: 'output', 
-            text: `======================================================================
+            text: `========================================
 TECHNICAL INVENTORY MATRIX
-======================================================================
+========================================
 AI ENGINEERING & AGENTIC SYSTEMS:
 ${aiList}
 
@@ -162,7 +173,7 @@ ${autoList}`
 
       case 'projects':
         const projList = portfolioData.projects.map(p => {
-          return `-----------------------------------------
+          return `----------------------------------------
 Title: ${p.title} [Category: ${p.category}]
 Tech: ${p.tech.join(', ')}
 ${p.github ? `GitHub: ${p.github}\n` : ''}${p.live ? `Live: ${p.live}\n` : ''}Description: ${p.description}`;
@@ -170,7 +181,7 @@ ${p.github ? `GitHub: ${p.github}\n` : ''}${p.live ? `Live: ${p.live}\n` : ''}De
 
         setHistory(prev => [
           ...prev,
-          { type: 'output', text: `=========================================\nFEATURED INITIATIVES\n=========================================\n${projList}` }
+          { type: 'output', text: `========================================\nFEATURED INITIATIVES\n========================================\n${projList}` }
         ]);
         break;
 
@@ -184,7 +195,7 @@ ${p.github ? `GitHub: ${p.github}\n` : ''}${p.live ? `Live: ${p.live}\n` : ''}De
 
         setHistory(prev => [
           ...prev,
-          { type: 'output', text: `=========================================\nACTIVE MCP SERVER NODES\n=========================================\n${mcpList}` }
+          { type: 'output', text: `========================================\nACTIVE MCP SERVER NODES\n========================================\n${mcpList}` }
         ]);
         break;
 
@@ -199,7 +210,7 @@ ${bulletPoints}`;
 
         setHistory(prev => [
           ...prev,
-          { type: 'output', text: `=========================================\nPROFESSIONAL TIMELINE\n=========================================\n${expList}` }
+          { type: 'output', text: `========================================\nPROFESSIONAL TIMELINE\n========================================\n${expList}` }
         ]);
         break;
 
@@ -262,11 +273,18 @@ ${bulletPoints}`;
     <div className="terminal-container scanlines" onClick={focusInput}>
       <div className="terminal-header">
         <div className="terminal-buttons">
-          <span className="dot dot-red"></span>
+          <span className="dot dot-red" onClick={onExit} style={{ cursor: 'pointer' }} title="Exit CLI"></span>
           <span className="dot dot-yellow"></span>
           <span className="dot dot-green"></span>
         </div>
         <div className="terminal-title">guest@andrewbaxter.dev: ~ (zsh)</div>
+        <button 
+          onClick={onExit}
+          className="terminal-exit-btn"
+          aria-label="Exit CLI Mode"
+        >
+          Exit
+        </button>
       </div>
       
       <div className="terminal-body" ref={terminalBodyRef}>
@@ -287,7 +305,7 @@ ${bulletPoints}`;
       </div>
 
       <div className="terminal-prompt-row">
-        <span className="terminal-prompt">guest@andrewbaxter.dev:~$</span>
+        <span className="terminal-prompt">{isMobile ? 'guest:~$' : 'guest@andrewbaxter.dev:~$'}</span>
         <input
           ref={inputRef}
           type="text"

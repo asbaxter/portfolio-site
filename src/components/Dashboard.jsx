@@ -451,7 +451,7 @@ export default function Dashboard({ onActivateCli }) {
                   className="chatbot-mobile-close"
                   onClick={() => setIsChatOpen(false)}
                   aria-label="Close Assistant Chat"
-                  style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '4px', display: 'none', alignItems: 'center', justifyContent: 'center' }}
+                  style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <CloseIcon size={16} />
                 </button>
@@ -491,17 +491,19 @@ export default function Dashboard({ onActivateCli }) {
         )}
 
         {/* Toggle Button (FAB) */}
-        <button 
-          onClick={() => setIsChatOpen(!isChatOpen)} 
-          id="chatbot-toggle-fab"
-          name="chatbot-toggle"
-          className={`floating-chat-btn glass-panel ${isChatOpen ? 'chat-btn-active' : ''}`}
-          title="Chat with Andrew's AI Assistant"
-          aria-label="Toggle assistant chatbot"
-        >
-          {isChatOpen ? <CloseIcon size={20} /> : <ChatIcon size={20} />}
-          <span className="floating-chat-status-dot"></span>
-        </button>
+        {!isChatOpen && (
+          <button 
+            onClick={() => setIsChatOpen(!isChatOpen)} 
+            id="chatbot-toggle-fab"
+            name="chatbot-toggle"
+            className="floating-chat-btn glass-panel"
+            title="Chat with Andrew's AI Assistant"
+            aria-label="Toggle assistant chatbot"
+          >
+            <ChatIcon size={20} />
+            <span className="floating-chat-status-dot"></span>
+          </button>
+        )}
       </div>
 
     </div>
