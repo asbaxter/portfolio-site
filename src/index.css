@@ -1,0 +1,257 @@
+/* ==========================================================================
+   ANALOG SYSTEM & AI PORTFOLIO DESIGN TOKENS
+   ========================================================================== */
+
+:root {
+  /* Fonts */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* Color Palette */
+  --bg-primary: #07090e;
+  --bg-secondary: #0c0f16;
+  --bg-card: rgba(14, 18, 27, 0.7);
+  --bg-input: rgba(8, 10, 15, 0.8);
+  
+  --color-cyan: #00f0ff;
+  --color-green: #00ff88;
+  --color-purple: #b500ff;
+  --color-gold: #ffd700;
+  --color-blue: #3b82f6;
+  
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-neon: #00f0ff;
+
+  /* Glassmorphism */
+  --glass-border: rgba(0, 240, 255, 0.12);
+  --glass-border-hover: rgba(0, 240, 255, 0.25);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --glass-backdrop: blur(12px);
+
+  /* Cyber Glows */
+  --glow-cyan: 0 0 10px rgba(0, 240, 255, 0.35), 0 0 20px rgba(0, 240, 255, 0.15);
+  --glow-green: 0 0 10px rgba(0, 255, 136, 0.35), 0 0 20px rgba(0, 255, 136, 0.15);
+  --glow-purple: 0 0 10px rgba(181, 0, 255, 0.35), 0 0 20px rgba(181, 0, 255, 0.15);
+}
+
+/* ==========================================================================
+   BASE & RESET STYLES
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 240, 255, 0.3) rgba(10, 10, 15, 0.8);
+}
+
+html {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 15, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* Dot Grid Background Pattern */
+.cyber-grid {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(rgba(0, 240, 255, 0.08) 1.2px, transparent 1.2px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ambient Radial Background Light */
+.cyber-aurora {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(181, 0, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   GLASSMORPHISM & CYBER UTILITIES
+   ========================================================================== */
+
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--glass-shadow);
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+  border-color: var(--glass-border-hover);
+}
+
+.neon-border-cyan {
+  border: 1px solid var(--color-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.neon-border-green {
+  border: 1px solid var(--color-green);
+  box-shadow: var(--glow-green);
+}
+
+.neon-text-cyan {
+  color: var(--color-cyan);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+.neon-text-green {
+  color: var(--color-green);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+.neon-text-purple {
+  color: var(--color-purple);
+  text-shadow: 0 0 8px rgba(181, 0, 255, 0.5);
+}
+
+/* Scanline Overlay effect for terminal */
+.scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Flickering prompt cursor */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Subtitle and header typographies */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-cyan);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: var(--font-display);
+}
+
+/* Container */
+.app-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glow button styling */
+.btn-cyber {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(0, 240, 255, 0.06);
+  border: 1px solid var(--color-cyan);
+  border-radius: 6px;
+  color: var(--color-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-cyan);
+}
+
+.btn-cyber:hover {
+  background: var(--color-cyan);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+  text-shadow: none;
+}
+
+/* Accessibility Focus Ring Styles */
+a:focus-visible, 
+button:focus-visible, 
+input:focus-visible, 
+textarea:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 4px;
+}

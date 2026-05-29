@@ -1,22 +1,16 @@
-# portfolio-site
+# React + Vite
 
-A site about me and stuff. Check it out and let me know what you think.</br>
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Live Site: [https://andrewbaxter.dev/](https://andrewbaxter.dev/)
+Currently, two official plugins are available:
 
-## hero
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-The bubbles are animated, which is pretty neat.
-![Hero Section Screenshot](./assets/images/hero-screenshot.png)
+## React Compiler
 
-## about
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-![About Section Screenshot](./assets/images/about-screenshot.png)
+## Expanding the ESLint configuration
 
-## projects
-
-![Projects Section Screenshot](./assets/images/projects-screenshot.png)
-
-## contact
-
-![Contact Section Screenshot](./assets/images/contact-screenshot.png)
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
