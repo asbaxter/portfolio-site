@@ -115,7 +115,7 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
   }, [messages]);
 
   // Categories list
-  const categories = ['All', 'AI & Agents', 'Google Workspace', 'Software', 'MCP Servers'];
+  const categories = ['All', 'AI Agents & MCP Servers', 'Google Workspace', 'Software'];
 
   // Filter projects
   const filteredProjects = activeCategory === 'All' 
@@ -161,6 +161,16 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
         })) {
           match = kb;
           break;
+        }
+      }
+
+      // Loose fallback match (handles parts of phrases, missing words, etc.)
+      if (!match) {
+        for (const kb of portfolioData.chatKnowledgeBase) {
+          if (kb.keywords.some(k => queryLower.includes(k.toLowerCase()))) {
+            match = kb;
+            break;
+          }
         }
       }
 
@@ -308,7 +318,6 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
                   <div className="project-card-top">
                     <div className="project-card-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                       <span className="project-cat neon-text-cyan">{p.category}</span>
-                      {p.isMcp && <span className="mcp-status-badge neon-text-green" style={{ fontSize: '0.7rem', padding: '1px 6px', height: 'fit-content' }}>{p.status}</span>}
                     </div>
                     <div className="project-title-row" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
                       {p.isMcp && <Cpu className="mcp-icon-inline neon-text-cyan" size={16} />}
@@ -317,7 +326,7 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
                     <p className="project-summary">{p.description}</p>
                   </div>
 
-                  {p.isMcp && isExpanded && (
+                  {p.isMcp && isExpanded && p.methods && p.methods.length > 0 && (
                     <div className="mcp-methods" style={{ marginTop: '12px', marginBottom: '12px' }} onClick={(e) => e.stopPropagation()}>
                       <h4 style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px', fontFamily: 'var(--font-mono)' }}>Registered Node Methods:</h4>
                       <div className="method-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
