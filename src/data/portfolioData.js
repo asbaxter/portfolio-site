@@ -1,50 +1,48 @@
 export const portfolioData = {
   personalInfo: {
     name: "Andrew Baxter",
-    title: "AI Specialist & Full-Stack Developer",
+    title: "AI Specialist & Software Developer",
     location: "Indianapolis, IN",
     phone: "(317)-446-1938",
     email: "asbaxter1@gmail.com",
     github: "https://github.com/asbaxter",
     linkedin: "https://www.linkedin.com/in/andrew-baxter-78575a235",
     resumeUrl: "/assets/images/andrew_baxter_resume.pdf",
-    bio: "I am a Full-Stack Software Developer specializing in Agentic AI solutions, custom Model Context Protocol (MCP) integrations, and enterprise Google Workspace automation. Currently driving software engineering, digital transformation, and API caching optimizations at The Wursta Corporation."
+    bio: "I am a Software Developer specializing in Agentic AI Solutions, Custom Model Context Protocol Integrations, and Enterprise Google Workspace Automation. Currently driving AI enablement for clients, custom integrations, and AI agent solutions."
   },
 
   skills: {
     aiEngineering: [
       { name: "Model Context Protocol (MCP)", level: 95 },
       { name: "Retrieval-Augmented Generation (RAG)", level: 90 },
-      { name: "Agentic Workflows & Tool Call Integration", level: 95 },
+      { name: "Agentic Workflows", level: 95 },
       { name: "Gemini & OpenAI APIs", level: 90 },
-      { name: "Enterprise LLM Safety & GCP Model Armor", level: 90 },
-      { name: "Structured Data Extraction (GenAI Parsers)", level: 90 },
-      { name: "Prompt Engineering & Claude Code", level: 95 },
+      { name: "Enterprise LLM Safety", level: 90 },
+      { name: "Structured Data Extraction", level: 90 },
+      { name: "Prompt Engineering", level: 95 },
       { name: "Antigravity", level: 95 }
     ],
     languagesCore: [
-      { name: "Python (Backend Services & CLIs)", level: 90 },
-      { name: "TypeScript & JavaScript (ES6+)", level: 95 },
-      { name: "Node.js Streams & Buffers", level: 88 },
+      { name: "Python", level: 90 },
+      { name: "TypeScript & JavaScript", level: 95 },
+      { name: "Node.js", level: 88 },
       { name: "SQL", level: 85 },
       { name: "HTML5 & CSS3", level: 90 }
     ],
     cloudDevOps: [
-      { name: "GCP Cloud Run & serverless Docker", level: 90 },
-      { name: "GCP Cloud Functions & IAM Security", level: 92 },
-      { name: "PostgreSQL, Redis & NoSQL", level: 85 },
-      { name: "High-Performance Redis Caching", level: 85 },
-      { name: "State-Driven Asynchronous Queues", level: 85 },
+      { name: "GCP Cloud Run", level: 90 },
+      { name: "Docker", level: 90 },
+      { name: "GCP Cloud Functions", level: 92 },
+      { name: "PostgreSQL & MongoDB", level: 85 },
       { name: "CI/CD & GitHub Actions", level: 90 }
     ],
     enterpriseAutomation: [
-      { name: "Cross-Cloud Re-platforming (MS to GWS)", level: 95 },
-      { name: "Google Apps Script (GAS)", level: 95 },
-      { name: "Google AppSheet (Low-Code)", level: 95 },
-      { name: "OAuth 2.0 Security & Token Caching", level: 92 },
-      { name: "GWS Marketplace App Verification", level: 90 },
+      { name: "Google Apps Script", level: 95 },
+      { name: "Google AppSheet", level: 95 },
+      { name: "OAuth 2.0", level: 92 },
+      { name: "GWS Marketplace Apps", level: 90 },
       { name: "Google Workspace APIs", level: 95 },
-      { name: "Data Pipelines & Migrations", level: 95 }
+      { name: "Data Migrations", level: 95 }
     ]
   },
 
@@ -89,7 +87,7 @@ export const portfolioData = {
     },
     {
       title: "Enterprise Media Cloud Migration Engine",
-      category: "Full Stack",
+      category: "Software",
       description: "Developed and executed a custom data migration engine for a leading technology firm during their company-wide transition from Zoom to Google Meet. The system downloaded terabytes of historical Zoom cloud video recordings, restructured them into dynamic Shared Drives, and automatically mapped appropriate access permissions to preserve data structure.",
       tech: ["Node.js", "Zoom API", "Google Drive API", "OAuth 2.0", "File Streams"],
       github: "https://github.com/asbaxter",
@@ -121,7 +119,7 @@ export const portfolioData = {
     },
     {
       title: "Heterogeneous Data Ingestion Importer",
-      category: "Full Stack",
+      category: "Software",
       description: "Engineered an automated claimant data ingestion pipeline for an insurance inspection firm. The script monitors designated routing inboxes, extracts attached requests formatted in highly irregular formats (messy CSVs, unstructured text, custom XMLs), parses them via specialized formatting engines and a Generative AI fallback parser, and imports structured cases directly into core Case Management Software.",
       tech: ["Node.js", "IMAP/Nodemailer", "Data Parsers", "Gemini API", "REST APIs"],
       github: "https://github.com/asbaxter",
@@ -184,7 +182,7 @@ export const portfolioData = {
     },
     {
       title: "Keyboard Hero",
-      category: "Full Stack",
+      category: "Software",
       description: "Designed and engineered a low-latency, browser-based rhythm-action application. Features high-frequency event loops running at 60Hz to handle rapid tactile keyboard inputs in real-time alongside low-latency Web Audio API graph routing for clean audio synchronization, scrolling canvas arrays, and persistent high-score database layers.",
       tech: ["HTML5", "CSS3", "JavaScript", "Web Audio API"],
       github: "https://github.com/asbaxter/keyboard-hero-v2",
@@ -360,7 +358,7 @@ export const portfolioData = {
     },
     {
       keywords: ["andrew", "about andrew", "who is", "profile", "bio", "summary"],
-      answer: "Andrew Baxter is an AI Specialist & Full-Stack Developer based in Indianapolis, IN. Currently, he is a Software Developer at Wursta, specializing in Agentic AI solutions, custom Model Context Protocol (MCP) integrations, and enterprise Google Workspace automation. Previously, he led high-volume logistics operations as a Sort Manager at FedEx Ground, and studied Criminal Justice and Digital Forensics at Ball State University."
+      answer: "Andrew Baxter is an AI Specialist & Software Developer based in Indianapolis, IN. Currently, he is a Software Developer at Wursta, specializing in Agentic AI solutions, custom Model Context Protocol (MCP) integrations, and enterprise Google Workspace automation. Previously, he led high-volume logistics operations as a Sort Manager at FedEx Ground, and studied Criminal Justice and Digital Forensics at Ball State University."
     },
     {
       keywords: ["wursta", "current job", "caching", "software developer", "workspace integrations"],
@@ -376,7 +374,7 @@ export const portfolioData = {
     },
     {
       keywords: ["skills", "tech stack", "languages", "technologies", "tech", "work with", "frameworks", "tools", "databases", "python", "javascript", "react", "programming"],
-      answer: "Andrew is a technical 'Swiss Army Knife' and Full-Stack AI Engineer who excels at rapidly mastering new technologies and deploying secure, production-grade applications. His capabilities are organized into four core disciplines:\n1. **AI Engineering & Agentic Systems**: Model Context Protocol (MCP) microservices (FastMCP), Retrieval-Augmented Generation (RAG) systems, advanced Prompt Engineering, and autonomous cron-job agent loops.\n2. **Languages & Core Development**: Python (backend services and CLI tooling), TypeScript & JavaScript (React/Next.js, Node.js, Apps Script ES6+ patterns), SQL, and HTML5/CSS3.\n3. **Cloud Infrastructure, Backend & DevOps**: Node.js & Express API servers, Google Cloud Platform (GCP IAM, Cloud Run, Cloud Functions, serverless Docker containers), enterprise databases (PostgreSQL, Redis caching, MySQL, MongoDB, Firestore), CI/CD pipelines (GitHub Actions), and Git.\n4. **Enterprise Integration & Automation**: Google Apps Script (GAS) enterprise patterns, Google AppSheet no-code/low-code SaaS systems, secure OAuth 2.0 and Workspace Store marketplace add-on verification, Google Workspace core APIs, and cross-platform re-platforming (e.g. Microsoft Power Apps to Workspace, Zoom to Google Meet).\nAndrew is highly adaptable, combining a digital forensics analytical mindset with deep full-stack engineering expertise to construct enterprise-grade software solutions."
+      answer: "Andrew is a technical 'Swiss Army Knife' and Software Developer who excels at rapidly mastering new technologies and deploying secure, production-grade applications. His capabilities are organized into four core disciplines:\n1. **AI Engineering & Agentic Systems**: Model Context Protocol (MCP) microservices (FastMCP), Retrieval-Augmented Generation (RAG) systems, advanced Prompt Engineering, and autonomous cron-job agent loops.\n2. **Languages & Core Development**: Python, TypeScript & JavaScript (React/Next.js, Node.js), SQL, and HTML5/CSS3.\n3. **Cloud Infrastructure & DevOps**: Node.js APIs, Google Cloud Platform (Cloud Run, Cloud Functions), enterprise databases (PostgreSQL, MongoDB), and CI/CD pipelines (GitHub Actions).\n4. **Enterprise Integration & Automation**: Google Apps Script (GAS), Google AppSheet, OAuth 2.0, Google Workspace APIs, and cross-platform re-platforming (e.g. Microsoft to Workspace, Zoom to Google Meet).\nAndrew is highly adaptable, combining a digital forensics analytical mindset with deep software engineering expertise to construct enterprise-grade solutions."
     },
     {
       keywords: ["projects", "keyboard hero", "weather flow", "zoom", "calendar add-on", "aerospace", "gws-mcp"],
@@ -384,7 +382,7 @@ export const portfolioData = {
     },
     {
       keywords: ["education", "study", "butler", "ball state", "university", "digital forensics", "criminology", "degree"],
-      answer: "Andrew's educational foundation contains:\n- Butler University: Completed an accelerated, highly intensive program in Full-Stack Web Development, mastering React, Node, and MVC concepts.\n- Ball State University: Studied Criminal Justice and Digital Forensics, giving him a robust analytical and security-oriented framework ideal for cloud operations."
+      answer: "Andrew's educational foundation contains:\n- Butler University: Completed an accelerated, highly intensive program in Software Engineering, mastering React, Node, and modern architectures.\n- Ball State University: Studied Criminal Justice and Digital Forensics, giving him a robust analytical and security-oriented framework ideal for cloud operations."
     },
     {
       keywords: ["contact", "email", "linkedin", "github", "phone", "call"],

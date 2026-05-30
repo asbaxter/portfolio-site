@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from '../data/portfolioData';
 import './Terminal.css';
 
-export default function Terminal({ activeSectionCallback, onExit, viewportHeight }) {
+export default function Terminal({ activeSectionCallback, onExit }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -13,6 +13,8 @@ export default function Terminal({ activeSectionCallback, onExit, viewportHeight
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // VisualViewport handled globally via CSS vars
 
   const [history, setHistory] = useState(() => {
     const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768;
@@ -52,15 +54,8 @@ export default function Terminal({ activeSectionCallback, onExit, viewportHeight
   };
 
   const handleInputFocus = () => {
-    window.scrollTo(0, 0);
-    if (terminalBodyRef.current) {
-      setTimeout(() => {
-        terminalBodyRef.current.scrollTo({
-          top: terminalBodyRef.current.scrollHeight,
-          behavior: 'smooth'
-        });
-      }, 150);
-    }
+    // Rely on native browser behavior and VisualViewport resize
+    // instead of jarringly forcing a scroll to bottom that hides top messages.
   };
 
   useEffect(() => {
@@ -70,23 +65,26 @@ export default function Terminal({ activeSectionCallback, onExit, viewportHeight
     return () => clearTimeout(timer);
   }, []);
 
+  const handleSubmit = (e) => {
+    if (e) e.preventDefault();
+    const command = inputValue.trim();
+    if (!command) return;
+
+    // Add to command history
+    const newCmdHistory = [command, ...commandHistory];
+    setCommandHistory(newCmdHistory);
+    setHistoryIndex(-1);
+
+    // Print command in terminal
+    setHistory(prev => [...prev, { type: 'input', text: `${isMobile ? 'guest:~$' : 'guest@andrewbaxter.dev:~$' } ${command}` }]);
+    
+    // Parse command
+    executeCommand(command);
+    setInputValue('');
+  };
+
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      const command = inputValue.trim();
-      if (!command) return;
-
-      // Add to command history
-      const newCmdHistory = [command, ...commandHistory];
-      setCommandHistory(newCmdHistory);
-      setHistoryIndex(-1);
-
-      // Print command in terminal
-      setHistory(prev => [...prev, { type: 'input', text: `${isMobile ? 'guest:~$' : 'guest@andrewbaxter.dev:~$' } ${command}` }]);
-      
-      // Parse command
-      executeCommand(command);
-      setInputValue('');
-    } else if (e.key === 'ArrowUp') {
+    if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (historyIndex < commandHistory.length - 1) {
         const nextIndex = historyIndex + 1;
@@ -285,7 +283,6 @@ ${bulletPoints}`;
     <div 
       className="terminal-container scanlines" 
       onClick={focusInput}
-      style={isMobile ? { height: viewportHeight, maxHeight: viewportHeight } : undefined}
     >
       <div className="terminal-header">
         <div className="terminal-buttons">
@@ -320,7 +317,7 @@ ${bulletPoints}`;
         <div ref={terminalEndRef} />
       </div>
 
-      <div className="terminal-prompt-row">
+      <form className="terminal-prompt-row" onSubmit={handleSubmit}>
         <span className="terminal-prompt">{isMobile ? 'guest:~$' : 'guest@andrewbaxter.dev:~$'}</span>
         <input
           ref={inputRef}
@@ -331,11 +328,21 @@ ${bulletPoints}`;
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={handleInputFocus}
+          onBlur={() => {
+            if (isMobile) {
+              // Reset iOS Safari layout viewport scroll when keyboard closes via "Done" button
+              setTimeout(() => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+              }, 100);
+            }
+          }}
           className="terminal-input"
           autoComplete="off"
           spellCheck="false"
+          inputMode="text"
+          enterKeyHint="send"
         />
-      </div>
+      </form>
     </div>
   );
 }

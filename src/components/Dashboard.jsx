@@ -51,7 +51,6 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
   const [activeCategory, setActiveCategory] = useState('All');
   const [expandedProject, setExpandedProject] = useState(null);
   const [activeSkillCategory, setActiveSkillCategory] = useState('all');
-  const [viewportHeight, setViewportHeight] = useState('100dvh');
   const chatInputRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -64,43 +63,10 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    if (isChatOpen) {
-      setTimeout(() => {
-        chatInputRef.current?.focus({ preventScroll: true });
-      }, 100);
-    }
-  }, [isChatOpen]);
+  // Removed the old useEffect that focused the chat after a timeout, 
+  // because iOS requires synchronous focus during the onClick event to open the keyboard.
 
-  useEffect(() => {
-    if (!isChatOpen) return;
 
-    const handleViewportChange = () => {
-      if (window.visualViewport) {
-        setViewportHeight(`${window.visualViewport.height}px`);
-        if (window.scrollY !== 0 || window.visualViewport.offsetTop !== 0) {
-          window.scrollTo(0, 0);
-        }
-      }
-    };
-
-    handleViewportChange();
-    window.visualViewport?.addEventListener('resize', handleViewportChange);
-    window.visualViewport?.addEventListener('scroll', handleViewportChange);
-
-    const resetScroll = () => {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 50);
-    };
-    window.addEventListener('focusin', resetScroll);
-
-    return () => {
-      window.visualViewport?.removeEventListener('resize', handleViewportChange);
-      window.visualViewport?.removeEventListener('scroll', handleViewportChange);
-      window.removeEventListener('focusin', resetScroll);
-    };
-  }, [isChatOpen]);
 
   const skillCategories = [
     { id: 'all', label: 'All Tech Stack', color: 'cyan' },
@@ -149,23 +115,18 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
   }, [messages]);
 
   // Categories list
-  const categories = ['All', 'AI & Agents', 'Google Workspace', 'Full Stack', 'MCP Servers'];
+  const categories = ['All', 'AI & Agents', 'Google Workspace', 'Software', 'MCP Servers'];
 
   // Filter projects
   const filteredProjects = activeCategory === 'All' 
     ? portfolioData.projects 
     : portfolioData.projects.filter(p => p.category === activeCategory);
 
+  // VisualViewport handled globally via CSS vars
+
   const handleChatFocus = () => {
-    window.scrollTo(0, 0);
-    if (chatMessagesRef.current) {
-      setTimeout(() => {
-        chatMessagesRef.current.scrollTo({
-          top: chatMessagesRef.current.scrollHeight,
-          behavior: 'smooth'
-        });
-      }, 150);
-    }
+    // Rely on VisualViewport resize and native behavior 
+    // rather than jarringly scrolling to bottom.
   };
 
   // Handle chatbot send
@@ -280,7 +241,7 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
           <div className="section-header">
             <Workflow className="neon-text-cyan" />
             <h2>Core Technical Capabilities</h2>
-            <p>An interactive, space-efficient directory of key programming languages, frameworks, AI agent architectures, and cloud services.</p>
+            <p>An interactive directory of key programming languages, frameworks, AI agent architectures, and cloud services.</p>
           </div>
 
           <div className="skills-container-panel glass-panel animate-fade-in">
@@ -317,7 +278,7 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
         <section id="projects" className="projects-section">
           <div className="section-header">
             <Code className="neon-text-cyan" />
-            <h2>Engineering Systems Portfolio</h2>
+            <h2>Featured Projects</h2>
             <p>Explore built applications, developer ecosystems, and enterprise-grade automation tools.</p>
           </div>
 
@@ -499,14 +460,13 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
       </div>
 
       {/* FLOATING ACTION CHATBOT */}
-      <div className="floating-chat-container">
-        {/* Chat Window */}
-        {isChatOpen && (
-          <div 
-            className="floating-chat-window glass-panel animate-fade-in scanlines" 
-            id="chatbot-window"
-            style={window.innerWidth <= 768 ? { height: viewportHeight, maxHeight: viewportHeight } : undefined}
-          >
+      <div className={`floating-chat-container ${isChatOpen ? 'chat-is-open' : ''}`}>
+        {/* Chat Window (Always in DOM so we can synchronously focus its input) */}
+        <div 
+          className={`floating-chat-window glass-panel scanlines ${isChatOpen ? 'animate-fade-in' : ''}`} 
+          id="chatbot-window"
+          style={{ display: isChatOpen ? 'flex' : 'none' }}
+        >
             <div className="chatbot-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div className="bot-header-info">
                 <Bot size={16} className="neon-text-cyan" />
@@ -562,20 +522,35 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 onFocus={handleChatFocus}
+                onBlur={() => {
+                  if (isMobile) {
+                    // Reset iOS Safari layout viewport scroll when keyboard closes via "Done" button
+                    setTimeout(() => {
+                      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                    }, 100);
+                  }
+                }}
                 placeholder="Ask 'EV migration', 'SOW automation'..."
                 className="chatbot-input"
+                inputMode="text"
+                enterKeyHint="send"
               />
               <button type="submit" id="chatbot-send-btn" className="chatbot-send-btn">
                 <Send size={14} />
               </button>
             </form>
           </div>
-        )}
 
         {/* Toggle Button (FAB) */}
         {!isChatOpen && (
           <button 
-            onClick={() => setIsChatOpen(!isChatOpen)} 
+            onClick={() => {
+              // Force synchronous DOM update for the display property so we can focus in the same event tick
+              const win = document.getElementById('chatbot-window');
+              if (win) win.style.display = 'flex';
+              if (chatInputRef.current) chatInputRef.current.focus({ preventScroll: true });
+              setIsChatOpen(true);
+            }} 
             id="chatbot-toggle-fab"
             name="chatbot-toggle"
             className="floating-chat-btn glass-panel"

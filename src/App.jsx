@@ -7,7 +7,6 @@ import './App.css';
 export default function App() {
   const [uiMode, setUiMode] = useState('dashboard'); // 'dashboard' or 'terminal'
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [viewportHeight, setViewportHeight] = useState('100vh');
   const [isChatActive, setIsChatActive] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -25,51 +24,35 @@ export default function App() {
     
     if (shouldLock) {
       const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-      document.body.style.height = '100%';
-      document.body.style.top = `-${scrollY}px`;
+      // Use simple overflow:hidden so Safari doesn't forcefully detach coordinate systems
       document.body.style.overflow = 'hidden';
-      document.body.style.overscrollBehavior = 'none';
-      document.documentElement.style.overscrollBehavior = 'none';
-
+      document.body.style.touchAction = 'none';
+      document.documentElement.style.overflow = 'hidden';
       return () => {
-        document.body.style.position = '';
-        document.body.style.width = '';
-        document.body.style.height = '';
-        document.body.style.top = '';
         document.body.style.overflow = '';
-        document.body.style.overscrollBehavior = '';
-        document.documentElement.style.overscrollBehavior = '';
-        window.scrollTo(0, scrollY);
+        document.body.style.touchAction = '';
+        document.documentElement.style.overflow = '';
       };
     }
   }, [uiMode, isMobileMenuOpen, isChatActive, isMobile]);
 
+  // Global VisualViewport listener for iOS Safari
   React.useEffect(() => {
-    const handleViewportChange = () => {
-      if (window.visualViewport) {
-        setViewportHeight(`${window.visualViewport.height}px`);
-        if (window.scrollY !== 0 || window.visualViewport.offsetTop !== 0) {
-          window.scrollTo(0, 0);
-        }
-      }
-    };
-    handleViewportChange();
-    window.visualViewport?.addEventListener('resize', handleViewportChange);
-    window.visualViewport?.addEventListener('scroll', handleViewportChange);
+    if (!window.visualViewport) return;
 
-    const resetScroll = () => {
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 50);
+    const vv = window.visualViewport;
+    const syncViewport = () => {
+      document.documentElement.style.setProperty('--vv-height', `${vv.height}px`);
+      document.documentElement.style.setProperty('--vv-offset-top', `${Math.max(0, vv.offsetTop)}px`);
     };
-    window.addEventListener('focusin', resetScroll);
+
+    vv.addEventListener('resize', syncViewport);
+    vv.addEventListener('scroll', syncViewport);
+    syncViewport();
 
     return () => {
-      window.visualViewport?.removeEventListener('resize', handleViewportChange);
-      window.visualViewport?.removeEventListener('scroll', handleViewportChange);
-      window.removeEventListener('focusin', resetScroll);
+      vv.removeEventListener('resize', syncViewport);
+      vv.removeEventListener('scroll', syncViewport);
     };
   }, []);
 
@@ -188,11 +171,8 @@ export default function App() {
               setIsChatOpen={setIsChatActive}
             />
           ) : (
-            <div 
-              className="terminal-wrapper animate-fade-in"
-              style={window.innerWidth <= 768 ? { height: viewportHeight, maxHeight: viewportHeight } : undefined}
-            >
-              <Terminal onExit={() => setUiMode('dashboard')} viewportHeight={viewportHeight} />
+            <div className="terminal-wrapper animate-fade-in">
+              <Terminal onExit={() => setUiMode('dashboard')} />
             </div>
           )}
         </div>
