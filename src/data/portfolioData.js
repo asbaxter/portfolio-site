@@ -189,7 +189,7 @@ export const portfolioData = {
       role: "Data Analyst",
       company: "FedEx Ground",
       period: "May 2022 - April 2023",
-      description: "Anylized service metrics to identify operational issues and improve service levels.",
+      description: "Analyzed service metrics to identify operational issues and improve service levels.",
       bullets: [
         "Analyzed complex service data to identify operational issues, presenting findings directly to operations leadership.",
         "Coordinated real-time logistics operations and data exchanges between FedEx systems and third-party networks."
