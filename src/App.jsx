@@ -50,7 +50,7 @@ export default function App() {
     const handleViewportChange = () => {
       if (window.visualViewport) {
         setViewportHeight(`${window.visualViewport.height}px`);
-        if (window.scrollY !== 0) {
+        if (window.scrollY !== 0 || window.visualViewport.offsetTop !== 0) {
           window.scrollTo(0, 0);
         }
       }

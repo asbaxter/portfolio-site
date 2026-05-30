@@ -78,7 +78,7 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
     const handleViewportChange = () => {
       if (window.visualViewport) {
         setViewportHeight(`${window.visualViewport.height}px`);
-        if (window.scrollY !== 0) {
+        if (window.scrollY !== 0 || window.visualViewport.offsetTop !== 0) {
           window.scrollTo(0, 0);
         }
       }
@@ -174,6 +174,15 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
     if (!chatInput.trim()) return;
 
     const userText = chatInput.trim();
+    const cleanUserText = userText.toLowerCase();
+    
+    // Support verbal exit commands to close chatbot
+    if (cleanUserText === 'exit' || cleanUserText === 'close' || cleanUserText === 'quit') {
+      setIsChatOpen(false);
+      setChatInput('');
+      return;
+    }
+
     const newMessages = [...messages, { sender: 'user', text: userText }];
     setMessages(newMessages);
     setChatInput('');
@@ -507,12 +516,26 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
                 <span className="chat-status neon-text-green">ONLINE</span>
                 <button 
                   type="button" 
-                  className="chatbot-mobile-close"
+                  className="terminal-exit-btn"
                   onClick={() => setIsChatOpen(false)}
-                  aria-label="Close Assistant Chat"
-                  style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  aria-label="Exit Chatbot"
+                  style={{
+                    background: 'rgba(255, 95, 86, 0.1)',
+                    border: '1px solid rgba(255, 95, 86, 0.4)',
+                    color: '#ff5f56',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.72rem',
+                    padding: '3px 10px',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    textTransform: 'uppercase',
+                    fontWeight: 'bold',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
                 >
-                  <CloseIcon size={16} />
+                  <CloseIcon size={12} /> Exit
                 </button>
               </div>
             </div>

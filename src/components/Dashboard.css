@@ -1163,7 +1163,7 @@
 @media (max-width: 768px) {
   .floating-chat-window {
     width: 100vw !important;
-    height: 100dvh !important;
+    height: 100%;
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -1173,5 +1173,6 @@
     border: none !important;
     margin: 0 !important;
     z-index: 99999 !important;
+    transition: none !important;
   }
 }
