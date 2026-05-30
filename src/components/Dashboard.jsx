@@ -425,34 +425,34 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
         <section id="contact" className="contact-section">
           <div className="section-header">
             <Mail className="neon-text-cyan" />
-            <h2>Secure Message Dispatch</h2>
-            <p>Initialize a secure, encrypted message transfer directly to Andrew's routing inbox.</p>
+            <h2>Contact Me</h2>
+            <p>Send me a message directly.</p>
           </div>
 
           <div className="contact-panel-wrapper glass-panel">
             <form action={`https://formsubmit.co/${portfolioData.personalInfo.email}`} method="POST" className="contact-form">
               <div className="form-input-row">
                 <div className="input-group">
-                  <label htmlFor="name">IDENTIFIER (NAME):</label>
-                  <input type="text" name="name" id="name" autocomplete="name" required placeholder="Guest Identity" className="cyber-input" />
+                  <label htmlFor="name">NAME:</label>
+                  <input type="text" name="name" id="name" autocomplete="name" required placeholder="Your Name" className="cyber-input" />
                 </div>
                 <div className="input-group">
-                  <label htmlFor="email">DISPATCH ADDR (EMAIL):</label>
-                  <input type="email" name="email" id="email" autocomplete="email" required placeholder="guest@domain.com" className="cyber-input" />
+                  <label htmlFor="email">EMAIL:</label>
+                  <input type="email" name="email" id="email" autocomplete="email" required placeholder="your@email.com" className="cyber-input" />
                 </div>
               </div>
               
               <div className="input-group">
-                <label htmlFor="message">MESSAGE ENVELOPE:</label>
-                <textarea name="message" id="message" autocomplete="off" rows="5" required placeholder="Enter dispatch logs here..." className="cyber-input"></textarea>
+                <label htmlFor="message">MESSAGE:</label>
+                <textarea name="message" id="message" autocomplete="off" rows="5" required placeholder="Enter your message here..." className="cyber-input"></textarea>
               </div>
               
               {/* Formsubmit parameters */}
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_subject" value="New Portfolio Dispatch Logs" />
+              <input type="hidden" name="_subject" value="New Portfolio Contact Message" />
 
               <button type="submit" id="contact-form-submit" className="btn-cyber btn-submit">
-                Transmit Payload <Send size={16} />
+                Send Message <Send size={16} />
               </button>
             </form>
           </div>

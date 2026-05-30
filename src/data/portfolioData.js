@@ -197,19 +197,19 @@ export const portfolioData = {
       period: "April 2024 - Present",
       description: "Promoted to lead software engineering workflows, custom SaaS client integrations, and corporate generative AI initiatives.",
       bullets: [
-        "Served as Lead Developer on a massive enterprise migration project for a leading electric vehicle (EV) manufacturer, auditing and successfully re-platforming dozens of high-value Power Apps/Power Automates into AppSheet and Apps Script.",
-        "Created an internal generative AI workflow using the Gemini Enterprise API to automatically construct, compile, and format customized Statements of Work (SOWs).",
-        "Published technical corporate blogs detailing enterprise Google Apps Script design patterns, caching protocols, and security best practices."
+        "Served as Lead Developer on a massive enterprise migration project for a leading electric vehicle (EV) manufacturer, re-platforming a complex ecosystem of legacy Microsoft applications (Power Apps, Power Automate, Power Pages) into robust Google Workspace integrations and modernized cloud applications.",
+        "Created an internal generative AI workflow leveraging AI agents and the Gemini Enterprise API to automatically construct, compile, and format customized Statements of Work (SOWs), drastically reducing manual drafting time for complex and unique product offerings.",
+        "Acted as a technical leader by publishing corporate engineering blogs, creating internal developer content libraries, and designing comprehensive client-facing training materials and technical workshops."
       ]
     },
     {
       role: "Jr. Workspace Integrations Developer",
       company: "The Wursta Corporation",
       period: "April 2023 - April 2024",
-      description: "Engineered custom Google Workspace extensibility solutions, automated business workflows, and API caching systems.",
+      description: "Engineered custom Google Workspace extensibility solutions and automated complex business workflows, specializing in connecting Workspace with third-party platforms and internal enterprise systems.",
       bullets: [
-        "Sole developer of Wursta's first public Google Workspace Store add-on, managing its design, engineering, and compliance requirements from end to end.",
-        "Implemented a highly optimized caching architecture for recurring client integrations, cutting API latency and reducing average load times by 60%."
+        "Sole developer of Wursta's first public Google Workspace Store add-on, managing its design, engineering, and compliance from end to end, including deployment, Stripe payment integration, and premium feature gating.",
+        "Delivered customized consulting solutions for diverse enterprise clients, rapidly engineering proof-of-concepts, automated Apps Script workflows, and AppSheet applications to resolve critical business bottlenecks."
       ]
     },
     {

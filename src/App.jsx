@@ -182,7 +182,7 @@ export default function App() {
       {(!isMobile || (uiMode === 'dashboard' && !isChatActive)) && (
         <footer className="cyber-footer">
           <p className="footer-text">
-            &copy; {new Date().getFullYear()} Andrew Baxter. Loaded under license. Systems running autonomous agent routines.
+            &copy; {new Date().getFullYear()} Andrew Baxter. All rights reserved.
           </p>
         </footer>
       )}

@@ -1,16 +1,59 @@
-# React + Vite
+# Andrew Baxter - Portfolio Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the source code for my personal portfolio website, available at [andrewbaxter.dev](https://andrewbaxter.dev) (or the corresponding Firebase hosting URL).
 
-Currently, two official plugins are available:
+This portfolio was built from the ground up using **React**, **Vite**, and **Vanilla CSS** to deliver a highly interactive, dual-mode experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **Dual-Mode Interface**: Toggle seamlessly between a modern, glassmorphic Graphic User Interface (GUI) and an interactive, fully-functional Command Line Interface (CLI) terminal.
+- **Interactive Terminal**: The CLI mode supports standard Unix-like commands (e.g., `ls`, `cd`, `cat`, `clear`) allowing visitors to navigate the portfolio directories as if they were exploring a real filesystem.
+- **Agentic AI Chatbot**: Includes a custom-built, floating AI assistant that can answer questions about my work history, technical skills, and featured projects using an integrated knowledge base.
+- **Responsive Design**: Carefully optimized for both desktop and mobile devices, ensuring complex interfaces (like the CLI and Chatbot) work flawlessly on smaller screens and virtual keyboards.
+- **Performance Optimized**: Built with Vite for rapid Hot Module Replacement (HMR) during development and highly optimized, minified bundles for production.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technology Stack
 
-## Expanding the ESLint configuration
+- **Framework**: React 18
+- **Build Tool**: Vite
+- **Styling**: Vanilla CSS (CSS Variables, Flexbox/Grid, Glassmorphism)
+- **Icons**: Lucide React
+- **Hosting**: Firebase Hosting
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Local Development
+
+To run this project locally on your machine:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/asbaxter/portfolio-site.git
+   cd portfolio-site
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
+
+## Deployment
+
+This project is configured to deploy to Firebase Hosting.
+
+```bash
+npm run build
+npx firebase deploy --only hosting
+```
+
+## Contact
+
+Feel free to reach out via the contact form on the live site or connect with me on [LinkedIn](https://www.linkedin.com/in/andrew-baxter-78575a235).
