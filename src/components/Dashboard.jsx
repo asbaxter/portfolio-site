@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Mail, 
-  Bot, 
   Sparkles, 
   Cpu, 
   Database, 
@@ -11,7 +10,6 @@ import {
   ChevronRight, 
   ArrowRight,
   Send,
-  User,
   ExternalLink,
   Code
 } from 'lucide-react';
@@ -34,24 +32,10 @@ const Linkedin = ({ size = 20 }) => (
   </svg>
 );
 
-const ChatIcon = ({ size = 20 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-  </svg>
-);
-
-const CloseIcon = ({ size = 16 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18" />
-    <line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-);
-
-export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) {
+export default function Dashboard({ onActivateCli }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [expandedProject, setExpandedProject] = useState(null);
   const [activeSkillCategory, setActiveSkillCategory] = useState('all');
-  const chatInputRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -62,11 +46,6 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  // Removed the old useEffect that focused the chat after a timeout, 
-  // because iOS requires synchronous focus during the onClick event to open the keyboard.
-
-
 
   const skillCategories = [
     { id: 'all', label: 'All Tech Stack', color: 'cyan' },
@@ -95,24 +74,6 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
     }
     return [];
   };
-  
-  // Chatbot State
-  const [messages, setMessages] = useState([
-    { sender: 'bot', text: "Hello! I am Andrew's virtual AI Career Assistant. Ask me anything about his work history at Wursta, his MCP servers, the EV manufacturer migration project, or his tech stack!" }
-  ]);
-  const [chatInput, setChatInput] = useState('');
-  const chatEndRef = useRef(null);
-  const chatMessagesRef = useRef(null);
-
-  // Auto-scroll chatbot messages container only, without shifting the whole page
-  useEffect(() => {
-    if (chatMessagesRef.current) {
-      chatMessagesRef.current.scrollTo({
-        top: chatMessagesRef.current.scrollHeight,
-        behavior: 'smooth'
-      });
-    }
-  }, [messages]);
 
   // Categories list
   const categories = ['All', 'AI Agents & MCP Servers', 'Google Workspace', 'Software'];
@@ -124,70 +85,11 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
 
   // VisualViewport handled globally via CSS vars
 
-  const handleChatFocus = () => {
-    // Rely on VisualViewport resize and native behavior 
-    // rather than jarringly scrolling to bottom.
-  };
 
-  // Handle chatbot send
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-
-    const userText = chatInput.trim();
-    const cleanUserText = userText.toLowerCase();
-    
-    // Support verbal exit commands to close chatbot
-    if (cleanUserText === 'exit' || cleanUserText === 'close' || cleanUserText === 'quit') {
-      setIsChatOpen(false);
-      setChatInput('');
-      return;
-    }
-
-    const newMessages = [...messages, { sender: 'user', text: userText }];
-    setMessages(newMessages);
-    setChatInput('');
-
-    // Simulate AI response thinking delay
-    setTimeout(() => {
-      const queryLower = userText.toLowerCase();
-      let match = null;
-
-      for (const kb of portfolioData.chatKnowledgeBase) {
-        if (kb.keywords.some(k => {
-          const cleanK = k.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-          const regex = new RegExp(`\\b${cleanK}\\b`, 'i');
-          return regex.test(queryLower);
-        })) {
-          match = kb;
-          break;
-        }
-      }
-
-      // Loose fallback match (handles parts of phrases, missing words, etc.)
-      if (!match) {
-        for (const kb of portfolioData.chatKnowledgeBase) {
-          if (kb.keywords.some(k => queryLower.includes(k.toLowerCase()))) {
-            match = kb;
-            break;
-          }
-        }
-      }
-
-      const botReply = match 
-        ? match.answer 
-        : "I ran a semantic search on Andrew's local memory blocks but couldn't find a precise match. Try asking about his 'MCP servers', 'EV migration', 'Wursta' achievements, or 'skills'.";
-
-      setMessages(prev => [...prev, { sender: 'bot', text: botReply }]);
-    }, 600);
-  };
 
   return (
     <>
-      <div 
-        className="dashboard-container"
-        style={isMobile && isChatOpen ? { display: 'none' } : undefined}
-      >
+      <div className="dashboard-container">
         
         {/* 1. HERO SECTION */}
         <section id="about" className="hero-section glass-panel">
@@ -443,17 +345,17 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
               <div className="form-input-row">
                 <div className="input-group">
                   <label htmlFor="name">NAME:</label>
-                  <input type="text" name="name" id="name" autocomplete="name" required placeholder="Your Name" className="cyber-input" />
+                  <input type="text" name="name" id="name" autoComplete="name" required placeholder="Your Name" className="cyber-input" />
                 </div>
                 <div className="input-group">
                   <label htmlFor="email">EMAIL:</label>
-                  <input type="email" name="email" id="email" autocomplete="email" required placeholder="your@email.com" className="cyber-input" />
+                  <input type="email" name="email" id="email" autoComplete="email" required placeholder="your@email.com" className="cyber-input" />
                 </div>
               </div>
               
               <div className="input-group">
                 <label htmlFor="message">MESSAGE:</label>
-                <textarea name="message" id="message" autocomplete="off" rows="5" required placeholder="Enter your message here..." className="cyber-input"></textarea>
+                <textarea name="message" id="message" autoComplete="off" rows="5" required placeholder="Enter your message here..." className="cyber-input"></textarea>
               </div>
               
               {/* Formsubmit parameters */}
@@ -468,109 +370,7 @@ export default function Dashboard({ onActivateCli, isChatOpen, setIsChatOpen }) 
         </section>
       </div>
 
-      {/* FLOATING ACTION CHATBOT */}
-      <div className={`floating-chat-container ${isChatOpen ? 'chat-is-open' : ''}`}>
-        {/* Chat Window (Always in DOM so we can synchronously focus its input) */}
-        <div 
-          className={`floating-chat-window glass-panel scanlines ${isChatOpen ? 'animate-fade-in' : ''}`} 
-          id="chatbot-window"
-          style={{ display: isChatOpen ? 'flex' : 'none' }}
-        >
-            <div className="chatbot-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div className="bot-header-info">
-                <Bot size={16} className="neon-text-cyan" />
-                <span>Andrew's Assistant v2.1.2</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span className="chat-status neon-text-green">ONLINE</span>
-                <button 
-                  type="button" 
-                  className="terminal-exit-btn"
-                  onClick={() => setIsChatOpen(false)}
-                  aria-label="Exit Chatbot"
-                  style={{
-                    background: 'rgba(255, 95, 86, 0.1)',
-                    border: '1px solid rgba(255, 95, 86, 0.4)',
-                    color: '#ff5f56',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.72rem',
-                    padding: '3px 10px',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px'
-                  }}
-                >
-                  <CloseIcon size={12} /> Exit
-                </button>
-              </div>
-            </div>
 
-            <div className="chatbot-messages" ref={chatMessagesRef}>
-              {messages.map((m, idx) => (
-                <div key={idx} className={`chat-bubble-container ${m.sender === 'user' ? 'user-container' : 'bot-container'}`}>
-                  {m.sender === 'bot' && <Bot size={14} className="chat-avatar bot-avatar" />}
-                  {m.sender === 'user' && <User size={14} className="chat-avatar user-avatar" />}
-                  <div className={`chat-bubble ${m.sender === 'user' ? 'bubble-user' : 'bubble-bot'}`}>
-                    <p>{m.text}</p>
-                  </div>
-                </div>
-              ))}
-              <div ref={chatEndRef} />
-            </div>
-
-            <form onSubmit={handleSendMessage} className="chatbot-input-row" onClick={(e) => e.stopPropagation()}>
-              <input
-                ref={chatInputRef}
-                type="text"
-                id="chatbot-input-field"
-                name="chatbot-input"
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                onFocus={handleChatFocus}
-                onBlur={() => {
-                  if (isMobile) {
-                    // Reset iOS Safari layout viewport scroll when keyboard closes via "Done" button
-                    setTimeout(() => {
-                      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-                    }, 100);
-                  }
-                }}
-                placeholder="Ask 'EV migration', 'SOW automation'..."
-                className="chatbot-input"
-                inputMode="text"
-                enterKeyHint="send"
-              />
-              <button type="submit" id="chatbot-send-btn" className="chatbot-send-btn">
-                <Send size={14} />
-              </button>
-            </form>
-          </div>
-
-        {/* Toggle Button (FAB) */}
-        {!isChatOpen && (
-          <button 
-            onClick={() => {
-              // Force synchronous DOM update for the display property so we can focus in the same event tick
-              const win = document.getElementById('chatbot-window');
-              if (win) win.style.display = 'flex';
-              if (chatInputRef.current) chatInputRef.current.focus({ preventScroll: true });
-              setIsChatOpen(true);
-            }} 
-            id="chatbot-toggle-fab"
-            name="chatbot-toggle"
-            className="floating-chat-btn glass-panel"
-            title="Chat with Andrew's AI Assistant"
-            aria-label="Toggle assistant chatbot"
-          >
-            <ChatIcon size={20} />
-            <span className="floating-chat-status-dot"></span>
-          </button>
-        )}
-      </div>
     </>
   );
 }

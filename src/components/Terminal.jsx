@@ -16,21 +16,10 @@ export default function Terminal({ activeSectionCallback, onExit }) {
 
   // VisualViewport handled globally via CSS vars
 
-  const [history, setHistory] = useState(() => {
-    const isMobileViewport = typeof window !== 'undefined' && window.innerWidth <= 768;
-    if (isMobileViewport) {
-      return [
-        { type: 'system', text: "Andrew Baxter's Console (v2.5.0). Type 'help' for diagnostics." }
-      ];
-    }
-    return [
-      { type: 'system', text: "Initializing Antigravity Core 2.0..." },
-      { type: 'system', text: "Connecting to Local Agent Workspace... SUCCESS" },
-      { type: 'system', text: "Loading custom MCP Server Nodes (google-drive-mcp, gmail-dispatch-mcp, calendar-mcp, google-tasks-mcp)... ONLINE" },
-      { type: 'system', text: "Welcome to Andrew Baxter's Console (v2.5.0-agentic)." },
-      { type: 'system', text: "Type 'help' to list available commands or 'chat <question>' to talk to my AI Career Assistant." },
-    ];
-  });
+  const [history, setHistory] = useState([
+    { type: 'system', text: "Welcome to Andrew Baxter's Console (v2.5.0)." },
+    { type: 'system', text: "Type 'help' to list available commands." }
+  ]);
   const [inputValue, setInputValue] = useState('');
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -121,7 +110,6 @@ export default function Terminal({ activeSectionCallback, onExit }) {
   projects  - Showcases primary development initiatives and tools
   mcp       - Inspect active Model Context Protocol (MCP) servers
   resume    - Structured professional timeline (Wursta / migrations)
-  chat <q>  - Dispatch questions to the local AI Career Assistant
   clear     - Wipes the console history
   exit      - Exits CLI mode and returns to GUI Dashboard
   help      - Displays this diagnostic log`
@@ -224,50 +212,7 @@ ${bulletPoints}`;
         ]);
         break;
 
-      case 'chat':
-        if (!args) {
-          setHistory(prev => [
-            ...prev,
-            { type: 'output', text: `Agent Assistant: Please specify a query! Example: 'chat mcp' or 'chat tell me about the EV project'.` }
-          ]);
-          break;
-        }
 
-        // Run chatbot query search
-        const queryLower = args.toLowerCase();
-        let match = null;
-
-        for (const kb of portfolioData.chatKnowledgeBase) {
-          if (kb.keywords.some(k => {
-            const cleanK = k.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-            const regex = new RegExp(`\\b${cleanK}\\b`, 'i');
-            return regex.test(queryLower);
-          })) {
-            match = kb;
-            break;
-          }
-        }
-
-        // Loose fallback match (handles parts of phrases, missing words, etc.)
-        if (!match) {
-          for (const kb of portfolioData.chatKnowledgeBase) {
-            if (kb.keywords.some(k => queryLower.includes(k.toLowerCase()))) {
-              match = kb;
-              break;
-            }
-          }
-        }
-
-        const responseText = match 
-          ? match.answer 
-          : `Agent Assistant: I scanned my local memory databases for '${args}' but couldn't find a direct match. You can ask about my 'mcp' projects, 'EV migration' experience, 'Wursta' responsibilities, or 'skills'.`;
-
-        setHistory(prev => [
-          ...prev,
-          { type: 'system', text: "Querying Agentic Memory Core..." },
-          { type: 'agent', text: responseText }
-        ]);
-        break;
 
       case 'exit':
         setHistory(prev => [

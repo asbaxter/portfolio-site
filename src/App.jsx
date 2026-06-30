@@ -7,7 +7,6 @@ import './App.css';
 export default function App() {
   const [uiMode, setUiMode] = useState('dashboard'); // 'dashboard' or 'terminal'
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isChatActive, setIsChatActive] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   React.useEffect(() => {
@@ -20,10 +19,9 @@ export default function App() {
   }, []);
 
   React.useEffect(() => {
-    const shouldLock = uiMode === 'terminal' || isMobileMenuOpen || (isChatActive && isMobile);
+    const shouldLock = uiMode === 'terminal' || isMobileMenuOpen;
     
     if (shouldLock) {
-      const scrollY = window.scrollY;
       // Use simple overflow:hidden so Safari doesn't forcefully detach coordinate systems
       document.body.style.overflow = 'hidden';
       document.body.style.touchAction = 'none';
@@ -34,7 +32,7 @@ export default function App() {
         document.documentElement.style.overflow = '';
       };
     }
-  }, [uiMode, isMobileMenuOpen, isChatActive, isMobile]);
+  }, [uiMode, isMobileMenuOpen]);
 
   // Global VisualViewport listener for iOS Safari
   React.useEffect(() => {
@@ -167,8 +165,6 @@ export default function App() {
           {uiMode === 'dashboard' ? (
             <Dashboard 
               onActivateCli={() => setUiMode('terminal')} 
-              isChatOpen={isChatActive}
-              setIsChatOpen={setIsChatActive}
             />
           ) : (
             <div className="terminal-wrapper animate-fade-in">
