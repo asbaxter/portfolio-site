@@ -37,6 +37,15 @@ export default function Dashboard({ onActivateCli }) {
   const [expandedProject, setExpandedProject] = useState(null);
   const [activeSkillCategory, setActiveSkillCategory] = useState('all');
   const [isMobile, setIsMobile] = useState(false);
+  const [showCopiedTooltip, setShowCopiedTooltip] = useState(false);
+
+  const handleEmailClick = (e) => {
+    // Attempt to open mail client, but also copy email to clipboard
+    navigator.clipboard.writeText(portfolioData.personalInfo.email).then(() => {
+      setShowCopiedTooltip(true);
+      setTimeout(() => setShowCopiedTooltip(false), 2000);
+    }).catch(() => {});
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -105,9 +114,35 @@ export default function Dashboard({ onActivateCli }) {
               <a href={portfolioData.personalInfo.linkedin} target="_blank" rel="noreferrer" className="social-btn">
                 <Linkedin size={20} />
               </a>
-              <a href={`mailto:${portfolioData.personalInfo.email}`} className="social-btn">
-                <Mail size={20} />
-              </a>
+              <div style={{ position: 'relative', display: 'inline-flex' }}>
+                {showCopiedTooltip && (
+                  <div className="copied-tooltip glass-panel animate-fade-in" style={{
+                    position: 'absolute',
+                    bottom: '125%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: 'rgba(10, 25, 30, 0.95)',
+                    border: '1px solid var(--primary-cyan)',
+                    color: 'var(--primary-cyan)',
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    fontSize: '0.72rem',
+                    whiteSpace: 'nowrap',
+                    zIndex: 10,
+                    boxShadow: '0 0 10px rgba(0, 242, 254, 0.3)'
+                  }}>
+                    Email Copied!
+                  </div>
+                )}
+                <a 
+                  href={`mailto:${portfolioData.personalInfo.email}`} 
+                  onClick={handleEmailClick}
+                  className="social-btn"
+                  title="Send email / copy to clipboard"
+                >
+                  <Mail size={20} />
+                </a>
+              </div>
             </div>
 
             <div className="hero-actions">
