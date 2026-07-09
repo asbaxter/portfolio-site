@@ -167,7 +167,7 @@ def build_resume():
         pdf.add_education_item(school, program, dates, details)
 
     # Output paths
-    workspace_root = r"c:\Users\asbax\Desktop\Projects\portfolio-site"
+    workspace_root = os.path.dirname(os.path.abspath(__file__))
     pdf.output(os.path.join(workspace_root, "andrew_baxter_resume.pdf"))
     pdf.output(os.path.join(workspace_root, "assets", "images", "andrew_baxter_resume.pdf"))
     pdf.output(os.path.join(workspace_root, "public", "andrew_baxter_resume.pdf"))
