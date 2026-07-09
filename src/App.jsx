@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Terminal as TerminalIcon, LayoutGrid, Cpu, Code, User, FileText, Mail, Sparkles, Workflow, Menu, X } from 'lucide-react';
+import { Terminal as TerminalIcon, LayoutGrid, Code, User, FileText, Mail, Workflow, Menu, X } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import Terminal from './components/Terminal';
 import './App.css';
@@ -88,7 +88,7 @@ export default function App() {
       <div className="cyber-aurora"></div>
 
       {/* SLEEK NAVIGATION HEADER */}
-      {(!isMobile || (uiMode === 'dashboard' && !isChatActive)) && (
+      {(!isMobile || uiMode === 'dashboard') && (
         <header className="cyber-header glass-panel">
           <div className="header-brand" onClick={(e) => handleNavClick(e, 'about')}>
             <Code className="brand-icon neon-text-cyan" size={18} />
@@ -175,7 +175,7 @@ export default function App() {
       </main>
 
       {/* CYBER FOOTER */}
-      {(!isMobile || (uiMode === 'dashboard' && !isChatActive)) && (
+      {(!isMobile || uiMode === 'dashboard') && (
         <footer className="cyber-footer">
           <p className="footer-text">
             &copy; {new Date().getFullYear()} Andrew Baxter. All rights reserved.
